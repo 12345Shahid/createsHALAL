@@ -1,0 +1,24 @@
+// File: package.json
+{
+  "name": "halal-ai-chat",
+  "version": "1.0.0",
+  "description": "A free, unlimited AI assistant with Halal content filtering.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "@supabase/supabase-js": "latest",
+    "onesignal-node": "latest",
+    "dotenv": "latest"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "prettier": "latest"
+  }
+}
