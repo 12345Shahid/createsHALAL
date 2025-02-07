@@ -1,30 +1,26 @@
-import { supabase } from '../../config/database';
-import { filterContent } from './filtering';
+// File: api/chat.ts
 import { formatOutput } from './formatting';
+import { filterContent } from './filtering';
 import { logHistory } from './history';
+import { getAIModel, generateAIResponse } from '../utils/aiModels';
 
-export async function chatWithAI(userId: string, message: string) {
+export async function chatWithAI(userId: string, message: string, modelId: string) {
   try {
-    // Simulate AI chat response (replace with actual AI model integration)
-    const response = await simulateAIChatResponse(message);
+    const aiModel = getAIModel(modelId); // Get AI model name
 
-    // Apply Halal compliance filtering
-    const filteredResponse = await filterContent(response);
+    // Get AI response using G4F
+    const aiResponse = await generateAIResponse(aiModel, message);
 
-    // Format the output
-    const formattedResponse = await formatOutput(filteredResponse, 'chat');
+    // Filter & format response
+    const filteredResponse = await filterContent(aiResponse);
+    const formattedResponse = await formatOutput(filteredResponse, "chat");
 
-    // Log the chat in history
-    await logHistory(userId, 'chat', message, formattedResponse);
+    // Log history
+    await logHistory(userId, "chat", message, formattedResponse, modelId);
 
     return formattedResponse;
   } catch (error) {
-    console.error('Error in chat:', error);
-    throw error;
+    console.error("❌ Chat Error:", error);
+    throw new Error("AI Chat Service is unavailable. Try again later.");
   }
-}
-
-async function simulateAIChatResponse(message: string): Promise<string> {
-  // This is a placeholder function. Replace with actual AI model integration.
-  return `AI response to: ${message}`;
 }
