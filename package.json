@@ -1,4 +1,3 @@
-
 {
   "name": "halal-ai-chat",
   "version": "1.0.0",
@@ -10,15 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@supabase/supabase-js": "latest",
+    "axios": "^1.7.9",
+    "dotenv": "latest",
+    "g4f": "^1.4.6",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest",
-    "@supabase/supabase-js": "latest",
-    "onesignal-node": "latest",
-    "dotenv": "latest"
+    "react-dom": "latest"
   },
   "devDependencies": {
+    "@types/react": "19.0.8",
     "eslint": "latest",
-    "prettier": "latest"
+    "prettier": "latest",
+    "typescript": "5.7.3"
   }
 }
