@@ -12,6 +12,7 @@
     "@supabase/supabase-js": "latest",
     "axios": "^1.7.9",
     "dotenv": "latest",
+    "g4f": "^1.4.6",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
