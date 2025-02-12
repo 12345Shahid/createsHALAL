@@ -1,38 +1,12 @@
+import { APP_NAME } from '../config/settings';
 import Head from 'next/head';
 import Link from 'next/link';
-import { APP_NAME } from '../config/settings';
+import Navigation from '../components/Navigation';
 
-const NavLink = ({ href, children }) => (
-  <Link href={href} className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
-    {children}
-  </Link>
-);
-
-const Navigation = () => (
-  <nav className="bg-gray-800">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between h-16">
-        <div className="flex items-center">
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-white font-bold text-xl">
-              {APP_NAME}
-            </Link>
-          </div>
-          <div className="ml-10 flex items-baseline space-x-4">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/about">About</NavLink>
-            <NavLink href="/pricing">Pricing</NavLink>
-            <NavLink href="/contact">Contact</NavLink>
-          </div>
-        </div>
-      </div>
-    </div>
-  </nav>
-);
-
+// Define the FeatureCard component
 const FeatureCard = ({ icon, title, description }) => (
   <div className="bg-white p-6 rounded-lg shadow-md">
-    <div className="text-3xl mb-2">{icon}</div>
+    <div className="text-3xl mb-4">{icon}</div>
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p>{description}</p>
   </div>
@@ -65,7 +39,7 @@ const Home = () => {
         </div>
 
         <div className="text-center mb-16">
-          <Link href="/chat" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-xl transition duration-300">
+          <Link href="/login" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-xl transition duration-300">
             Start Chatting for Free Now!
           </Link>
         </div>

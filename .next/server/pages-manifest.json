@@ -1,9 +1,9 @@
 {
   "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/contact": "pages/contact.js",
-  "/": "pages/index.js",
-  "/about": "pages/about.js",
-  "/chat": "pages/chat.js"
+  "/_error": "pages/_error.js",
+  "/signup": "pages/signup.js",
+  "/chat": "pages/chat.js",
+  "/login": "pages/login.js",
+  "/api/auth/signup": "pages/api/auth/signup.js"
 }

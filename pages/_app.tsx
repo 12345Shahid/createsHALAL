@@ -1,31 +1,20 @@
-import { useEffect } from "react";
-import Script from "next/script";
+// File: pages/_app.tsx
+import { useEffect, useState } from "react";
+import { supabase } from "../config/database";
 import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    // Ensure OneSignal loads only on the client side
-    if (typeof window !== "undefined") {
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      window.OneSignalDeferred.push(async (OneSignal) => {
-        await OneSignal.init({
-          appId: process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID, // Use env variable
-          notifyButton: { enable: true },
-        });
-      });
-    }
+    const checkUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    checkUser();
   }, []);
 
-  return (
-    <>
-      {/* Add OneSignal SDK Script */}
-      <Script
-        src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-        strategy="lazyOnload"
-      />
-      <Component {...pageProps} />
-    </>
-  );
+  return <Component {...pageProps} user={user} />;
 }
 
 export default MyApp;
