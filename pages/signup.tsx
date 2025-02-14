@@ -1,18 +1,20 @@
 import Head from 'next/head';
+import { APP_NAME } from '../config/settings';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
-import { APP_NAME } from '../config/settings';
 
 const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isExistingUser, setIsExistingUser] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setIsExistingUser(false);
 
     try {
       const response = await fetch('/api/auth/signup', {
@@ -21,11 +23,14 @@ const Signup = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      const data = await response.json();
       if (response.ok) {
-        router.push('/chat');
+        router.push('/tool-selection'); // Redirect to a new tool selection page
       } else {
-        const data = await response.json();
-        setError(data.message || 'An error occurred during signup');
+        if (data.error.includes("already exists")) {
+          setIsExistingUser(true);
+        }
+        setError(data.error || 'An error occurred during signup');
       }
     } catch (err) {
       setError('An error occurred. Please try again.');
@@ -62,7 +67,14 @@ const Signup = () => {
             className="w-full p-2 border rounded"
           />
         </div>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && (
+          <p className="text-red-500 mb-4">
+            {error}
+            {isExistingUser && (
+              <> Please <Link href="/login" className="text-blue-500">login here</Link> instead.</>
+            )}
+          </p>
+        )}
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
           Sign Up
         </button>

@@ -12,10 +12,12 @@
     "@supabase/supabase-js": "latest",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
+    "framer-motion": "^12.4.2",
     "g4f": "^1.4.6",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-icons": "^5.4.0"
   },
   "devDependencies": {
     "@types/react": "19.0.8",
