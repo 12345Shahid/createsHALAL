@@ -25,71 +25,66 @@ const Login = () => {
       });
 
       const data = await response.json();
-      console.log("Server response:", data);
-
       if (response.ok) {
-        // Redirect user based on role
-        router.push(data.isAdmin ? "/admin/dashboard" : "/chat");
+        router.push(data.isAdmin ? "/admin/dashboard" : "/dashboard");
       } else {
         setError(data.error || "Invalid email or password");
       }
     } catch (err) {
-      console.error("Login client error:", err);
       setError("An error occurred. Please try again.");
     }
-
     setLoading(false);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-green-200 to-green-500">
       <Head>
         <title>Login - {APP_NAME}</title>
       </Head>
-
-      <h1 className="text-3xl font-bold mb-6">Login</h1>
-
-      <form onSubmit={handleSubmit} className="max-w-md">
-        <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center text-green-600 mb-6">Login</h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-700">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full p-2 border rounded focus:ring focus:ring-green-300"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-2 border rounded focus:ring focus:ring-green-300"
+              required
+            />
+          </div>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <button
+            type="submit"
+            className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300"
+            disabled={loading}
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+        <div className="text-center mt-4">
+          <Link href="/forgot-password" className="text-green-600 hover:text-green-700 text-sm">
+            Forgot Password?
+          </Link>
         </div>
-        <div className="mb-4">
-          <label className="block text-gray-700">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded"
-            required
-          />
-        </div>
-
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-
-        <button
-          type="submit"
-          className={`bg-blue-500 text-white px-4 py-2 rounded w-full ${
-            loading ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          disabled={loading}
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
-      </form>
-
-      <p className="mt-4 text-gray-600">
-        Don't have an account?{" "}
-        <Link href="/signup" className="text-blue-500 underline">
-          Sign up here
-        </Link>
-      </p>
+        <p className="mt-4 text-gray-600 text-center">
+          Don't have an account? {" "}
+          <Link href="/signup" className="text-green-600 hover:text-green-700 font-semibold">
+            Sign up here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

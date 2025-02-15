@@ -2,9 +2,8 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/signup": "pages/signup.js",
   "/login": "pages/login.js",
-  "/api/auth/signup": "pages/api/auth/signup.js",
-  "/tool-selection": "pages/tool-selection.js",
-  "/chat": "pages/chat.js"
+  "/forgot-password": "pages/forgot-password.js",
+  "/api/auth/login": "pages/api/auth/login.js",
+  "/reset-password": "pages/reset-password.js"
 }

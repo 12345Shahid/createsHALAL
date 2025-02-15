@@ -8,10 +8,19 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
+      const { data: { user }, error } = await supabase.auth.getUser();
+      if (!error) setUser(user);
     };
     checkUser();
+
+    // Listen for session changes
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, []);
 
   return <Component {...pageProps} user={user} />;
