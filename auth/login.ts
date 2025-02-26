@@ -13,7 +13,20 @@ export async function login(email: string, password: string) {
     }
 
     console.log('✅ Login successful:', data.user?.email);
-    return data.user;
+    
+    // Fetch user role
+    const { data: userData, error: roleError } = await supabase
+      .from('users')
+      .select('role')
+      .eq('email', email)
+      .single();
+
+    if (roleError) {
+      console.error('❌ Error fetching role:', roleError);
+      throw new Error('Failed to retrieve user role');
+    }
+
+    return { user: data.user, role: userData.role };
   } catch (err) {
     console.error('❌ Login function error:', err);
     throw new Error('Login failed. Please try again.');

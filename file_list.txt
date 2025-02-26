@@ -146,5 +146,6 @@ pages/reset-password-request.tsx
 pages/forgot-password.tsx
 auth/reset-password.ts
 pages/api/auth/reset-password.ts
+pages/ dashboard.tsx
 
 

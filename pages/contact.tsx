@@ -1,70 +1,35 @@
-import { useState } from 'react';
-import Head from 'next/head';
-import { APP_NAME } from '../config/settings';
+import Head from "next/head";
+import { Mail } from "lucide-react";
+import { APP_NAME } from "../config/settings";
 
 const Contact = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Here we would typically send the form data to an API endpoint
-    // For now, we'll just simulate a successful submission
-    setSubmitted(true);
-  };
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-6">
       <Head>
         <title>Contact Us - {APP_NAME}</title>
-        <meta name="description" content="Get in touch with us" />
+        <meta name="description" content="Get in touch with us via email" />
       </Head>
 
-      <h1 className="text-4xl font-bold mb-6">Contact Us</h1>
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-lg text-center">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Contact Us</h1>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Have a question, suggestion, or need support? We’re here to help! Reach out to us via email.
+        </p>
 
-      {submitted ? (
-        <p className="text-green-600">Thank you for your message. We'll get back to you soon!</p>
-      ) : (
-        <form onSubmit={handleSubmit} className="max-w-lg">
-          <div className="mb-4">
-            <label htmlFor="name" className="block mb-2">Name</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block mb-2">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full p-2 border rounded"
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="message" className="block mb-2">Message</label>
-            <textarea
-              id="message"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-              className="w-full p-2 border rounded"
-              rows={5}
-            ></textarea>
-          </div>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-            Send Message
-          </button>
-        </form>
-      )}
+        <div className="flex items-center justify-center space-x-3 bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 px-4 py-3 rounded-lg">
+          <Mail className="h-6 w-6" />
+          <a
+            href="mailto:create.contact.369@gmail.com"
+            className="text-lg font-medium hover:underline"
+          >
+            create.contact.369@gmail.com
+          </a>
+        </div>
+
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">
+          We usually respond within 24 hours.
+        </p>
+      </div>
     </div>
   );
 };

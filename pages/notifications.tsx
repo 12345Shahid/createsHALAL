@@ -1,7 +1,14 @@
-import Head from 'next/head';
-import { APP_NAME } from '../config/settings';
-import { useState, useEffect } from 'react';
-import { getNotifications } from '../api/notifications'; // You'll need to create this API function
+import Head from "next/head";
+import { APP_NAME } from "../config/settings";
+import { useState, useEffect } from "react";
+
+const getNotifications = async () => {
+  const response = await fetch("/api/notifications");
+  if (!response.ok) {
+    return [];
+  }
+  return await response.json();
+};
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);

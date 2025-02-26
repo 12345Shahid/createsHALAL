@@ -1,4 +1,3 @@
-// File: pages/login.tsx
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -74,12 +73,12 @@ const Login = () => {
           </button>
         </form>
         <div className="text-center mt-4">
-          <Link href="/forgot-password" className="text-green-600 hover:text-green-700 text-sm">
+          <Link href="/reset-password-request" className="text-green-600 hover:text-green-700 text-sm">
             Forgot Password?
           </Link>
         </div>
         <p className="mt-4 text-gray-600 text-center">
-          Don't have an account? {" "}
+          Don't have an account?{" "}
           <Link href="/signup" className="text-green-600 hover:text-green-700 font-semibold">
             Sign up here
           </Link>

@@ -1,33 +1,20 @@
-// File: pages/api/auth/reset-password.ts
-import { supabase } from '../../../config/database';
+import { NextApiRequest, NextApiResponse } from "next";
+import { supabase } from "../../../config/database";
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', ['POST']);
-    return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: `Method ${req.method} not allowed` });
   }
 
-  const { token, password } = req.body;
-  if (!token || !password) {
-    return res.status(400).json({ error: 'Invalid request' });
-  }
+  const { email } = req.body;
 
-  // Reset password using Supabase
-  const { error } = await supabase.auth.updateUser({
-    access_token: token,
-    password,
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/reset-password`,
   });
 
   if (error) {
     return res.status(400).json({ error: error.message });
   }
 
-  // Get the user session
-  const { data: session, error: sessionError } = await supabase.auth.getSession();
-
-  if (sessionError) {
-    return res.status(400).json({ error: 'Password reset, but login failed. Please log in manually.' });
-  }
-
-  return res.status(200).json({ message: 'Password reset successful', session });
+  return res.status(200).json({ message: "Password reset link sent to your email." });
 }
